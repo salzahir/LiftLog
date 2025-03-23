@@ -4,5 +4,6 @@ const router = Router();
 const controller = require('../controllers/liftController');
 
 router.get('/', controller.getHome);
+router.get('/lifts', controller.getLifts);
 
-router.get('/about', controller.getAbout);
+module.exports = router;
