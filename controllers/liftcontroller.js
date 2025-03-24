@@ -59,11 +59,17 @@ async function postUpdateLift (req, res) {
     }
 }
 
+async function deleteLift(req, res) {
+    await db.deleteLift(req.params.id);
+    res.redirect('/lifts');
+}
+
 module.exports = {
     getHome,
     getLifts,
     getNewLift,
     postNewLift,
     getUpdateLift,
-    postUpdateLift
+    postUpdateLift,
+    deleteLift
 };

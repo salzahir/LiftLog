@@ -12,4 +12,5 @@ router.post("/newLift", controller.postNewLift);
 router.get("/:id/update", controller.getUpdateLift);
 router.post("/:id/update", controller.postUpdateLift);
 
+router.post("/:id/delete", controller.deleteLift);
 module.exports = router;

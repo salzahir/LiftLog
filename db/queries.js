@@ -25,8 +25,13 @@ async function insertLift(lift) {
 async function getLift(id) {
     try {
         const lift = await pool.query('SELECT * FROM workouts WHERE id = $1', [id]);
-        console.log('Got lift');
-        console.log(lift.rows[0]);
+
+        console.log('Lift date');
+        console.log(lift.rows[0].date);
+        if (lift.date) {
+            lift.date = lift.date.toISOString().split('T')[0];
+        }
+
         return lift.rows[0];
     } catch (error) {
         console.error('Error getting lift', error);
@@ -46,9 +51,18 @@ async function updateLift(lift) {
     }
 }
 
+async function deleteLift(id) {
+    try {
+        await pool.query('DELETE FROM workouts WHERE id = $1', [id]);
+    } catch (error) {
+        console.error('Error deleting lift', error);
+    }
+}
+
 module.exports = {
     getLifts,
     insertLift,
     getLift, 
-    updateLift
+    updateLift,
+    deleteLift
 };
