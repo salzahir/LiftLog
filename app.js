@@ -2,14 +2,16 @@ const express = require('express');
 const app = express();
 require('dotenv').config();
 
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+
+
 const PORT = process.env.PORT || 3000;
 const routes = require('./routes/routes');
 app.use('/', routes);
 
 const path = require('path');
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.urlencoded({extended: false}));
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');

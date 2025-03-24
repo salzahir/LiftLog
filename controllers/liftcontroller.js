@@ -19,13 +19,42 @@ getNewLift = (req, res) => {
     res.render('newLift');
 }
 
-// postNewLift = async(req, res) => {
+postNewLift = async(req, res) => {
+    
+    const {
+        name,
+        reps,
+        sets,
+        weight,
+        date,
+    } = req.body;
 
-// }
+    const errors = validationResult(req);
 
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    const lift = {
+        name,
+        reps,
+        sets,
+        weight,
+        date,
+    };
+
+    try {
+        console.log('Inserting lift:', lift);
+        await db.insertLift(lift);
+        res.redirect('/lifts');
+    } catch(error) {
+        console.error('Error inserting lift:', error);
+    }
+}
 
 module.exports = {
     getHome,
     getLifts,
     getNewLift,
+    postNewLift,
 };

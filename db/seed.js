@@ -20,7 +20,7 @@ async function seedDatabase() {
 
     try {
         console.log('Connecting to database');
-        const SQL = fs.readFileSync(path.join(__dirname, 'seed.sql'), 'utf-8');
+        const SQL = fs.readFileSync(path.join(__dirname, 'schema.sql'), 'utf-8');
         await client.connect();
         await client.query(SQL);
         console.log('Database seeded successfully');
