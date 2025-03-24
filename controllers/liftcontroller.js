@@ -15,8 +15,17 @@ getLifts = async (req, res) => {
     }
 };
 
+getNewLift = (req, res) => {
+    res.render('newLift');
+}
+
+// postNewLift = async(req, res) => {
+
+// }
+
 
 module.exports = {
     getHome,
     getLifts,
+    getNewLift,
 };
