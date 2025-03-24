@@ -1,0 +1,13 @@
+<form method="POST" action="/<%= lift.id %>/update">
+    <h1>Update Lift</h1>
+    <h2>Enter your updated lift details below</h2>
+
+    <input type="text" name="name" value="<%= lift.name %>" placeholder="Lift Name" required>
+    <input type="number" name="reps" value="<%= lift.reps %>" required>
+    <input type="number" name="sets" value="<%= lift.sets %>" required>
+    <input type="number" name="weight" value="<%= lift.weight %>" required> (lbs)
+    <input type="date" name="date" value="<%= lift.date %>" required>
+
+    <button type="submit">Submit</button>
+    <a href="/">Back to home</a>
+</form>

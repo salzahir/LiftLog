@@ -1,54 +1,61 @@
 const {body, validationResult} = require('express-validator');
 const db = require('../db/queries');
 
-getHome = (req, res) => {
-    res.render('index');
-}
+getHome = (req, res) => {res.render('index');}
 
-getLifts = async (req, res) => {  
+getNewLift = (req, res) => {res.render('newLift');}
+
+async function getLifts(req, res) {  
     try {
         const lifts = await db.getLifts(); 
         res.render('lifts', {lifts});
     } catch (error) {
-        console.error('Error getting lifts:', error);
         res.status(500).send('Error getting lifts');
     }
 };
 
-getNewLift = (req, res) => {
-    res.render('newLift');
+function handleErrors(req, res) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        res.status(400).json({ errors: errors.array() });
+        return true;
+    }
+    return false;
 }
 
-postNewLift = async(req, res) => {
-    
-    const {
-        name,
-        reps,
-        sets,
-        weight,
-        date,
-    } = req.body;
+async function postNewLift(req, res) {
 
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
-    const lift = {
-        name,
-        reps,
-        sets,
-        weight,
-        date,
-    };
+    if(handleErrors(req, res)) {return;}
 
     try {
-        console.log('Inserting lift:', lift);
-        await db.insertLift(lift);
+        await db.insertLift(req.body);
+        res.redirect('/lifts');
+    } catch (error) {
+        console.error('Error inserting lift:', error);
+    }
+};
+
+async function getUpdateLift(req, res) {
+    const lift = await db.getLift(req.params.id);
+    res.render('updateLift', {lift});
+}
+
+async function postUpdateLift (req, res) {
+    const lift = await db.getLift(req.params.id);
+
+    if(handleErrors(req, res)) {return;}
+
+    const updatedLift = {
+        id: req.params.id, 
+        ...req.body
+    }
+
+    try {
+        await db.updateLift(updatedLift);
+        const updatedLiftFromDB = await db.getLift(req.params.id);
         res.redirect('/lifts');
     } catch(error) {
-        console.error('Error inserting lift:', error);
+        console.error('Error updating lift:', error);
     }
 }
 
@@ -57,4 +64,6 @@ module.exports = {
     getLifts,
     getNewLift,
     postNewLift,
+    getUpdateLift,
+    postUpdateLift
 };

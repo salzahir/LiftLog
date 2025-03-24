@@ -3,10 +3,7 @@ const pool = require('./pool');
 async function getLifts() {
 
     try {
-        console.log('Getting lifts');
         const lifts = await pool.query('SELECT * FROM workouts');
-        console.log('Got lifts');
-        console.log(lifts.rows);
         return lifts.rows;
     } catch (error) {
         console.error('Error getting lifts', error);
@@ -16,7 +13,6 @@ async function getLifts() {
 
 async function insertLift(lift) {
     try {
-        console.log("Inserting Lift")
         await pool.query(`
             INSERT INTO workouts (name, reps, sets, weight, date)
             VALUES ($1, $2, $3, $4, $5)
@@ -26,7 +22,33 @@ async function insertLift(lift) {
     }
 }
 
+async function getLift(id) {
+    try {
+        const lift = await pool.query('SELECT * FROM workouts WHERE id = $1', [id]);
+        console.log('Got lift');
+        console.log(lift.rows[0]);
+        return lift.rows[0];
+    } catch (error) {
+        console.error('Error getting lift', error);
+        return [];
+    }
+}
+
+async function updateLift(lift) {
+    try {
+        await pool.query(`
+            UPDATE workouts
+            SET name = $1, reps = $2, sets = $3, weight = $4, date = $5
+            WHERE id = $6
+        `, [lift.name, lift.reps, lift.sets, lift.weight, lift.date, lift.id]);
+    } catch (error) {
+        console.error('Error updating lift', error);
+    }
+}
+
 module.exports = {
     getLifts,
-    insertLift
+    insertLift,
+    getLift, 
+    updateLift
 };

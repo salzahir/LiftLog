@@ -9,4 +9,7 @@ router.get('/lifts', controller.getLifts);
 router.get("/newLift", controller.getNewLift);
 router.post("/newLift", controller.postNewLift);
 
+router.get("/:id/update", controller.getUpdateLift);
+router.post("/:id/update", controller.postUpdateLift);
+
 module.exports = router;

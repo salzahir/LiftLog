@@ -10,9 +10,11 @@
     <h1>Lifts</h1>
 
     <h2>My Lifts</h2>
-
+    <p>View your recorded lifts below</p>
+    <button><a href="/">Home</a></button>
     <button><a href="/newLift">New Lift</a></button>
 
+    <p></p>
     <div class="lifts">
         <% lifts.forEach(lift => { %> <!-- Use EJS <% %> tags for logic -->
             <div class="lift">
@@ -27,9 +29,11 @@
                 <p><%= lift.sets %></p> 
                 <h3>Date</h3>
                 <h4><%= lift.date %></h4>
+                <a href="/<%= lift.id %>/update">Update</a>
             </div>
         <% }); %> <!-- Close the forEach loop with <% %> -->
     </div>
+
 
 
 </body>
