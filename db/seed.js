@@ -3,12 +3,16 @@ require('dotenv').config({ path: '../.env' });
 const path = require('path');
 const fs = require('fs');
 
-async function seedDatabase() {
-
-    if (!process.env.DATABASE_URL) {
+function checkEnv(url) {
+    if (!url) {
         console.error('Missing DATABASE_URL in .env file');
         process.exit(1);
     }
+}
+
+async function seedDatabase() {
+
+    checkEnv(process.env.DATABASE_URL);
 
     const client = new Client({
         connectionString: process.env.DATABASE_URL,

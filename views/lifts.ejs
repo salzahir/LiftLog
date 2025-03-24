@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
     <h1>Lifts</h1>
 
     <h2>My Lifts</h2>
-    <div>
+    <div class="lifts">
         <% lifts.forEach(lift => { %> <!-- Use EJS <% %> tags for logic -->
-            <div>
-                <p><%= lift.id %></p>  <!-- Use <%= %> to output values -->
+            <div class="lift">
+                <h3>Name </h3>
                 <h3><%= lift.name %></h3> 
+                <p><%= lift.id %></p>  <!-- Use <%= %> to output values -->
+                <h3>Weight</h3>
                 <p><%= lift.weight %></p> 
+                <h3>Reps</h3>
                 <p><%= lift.reps %></p> 
+                <h3>Sets</h3>
                 <p><%= lift.sets %></p> 
+                <h3>Date</h3>
                 <h4><%= lift.date %></h4>
             </div>
         <% }); %> <!-- Close the forEach loop with <% %> -->
