@@ -3,26 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>My Lifts - LiftLog</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+
     <h1>Lifts</h1>
 
     <h2>My Lifts</h2>
-    <p>View your recorded lifts below</p>
+    <p>View your recorded lifts below. Each entry contains your sets, reps, weight lifted, and the date it was completed. Use this log to track your progress and stay on top of your fitness goals!</p>
+
+    <h3>Quick Links</h3>
+    <p>Use the buttons below to navigate:</p>
     <button><a href="/">Home</a></button>
     <button><a href="/newLift">New Lift</a></button>
 
-    <p></p>
+    <h3>How to Log a Lift</h3>
+    <p>To log a new lift, simply click on the "New Lift" button and enter the details such as lift name, weight, reps, and sets. Afterward, you can view your performance in the "My Lifts" section and track your improvement over time.</p>
+
+    <h3>What Can I Do Here?</h3>
+    <ul>
+        <li><strong>View your lifts:</strong> Check all your recorded lifts, sorted by date.</li>
+        <li><strong>Edit your lifts:</strong> Click the "Update" button to modify any lift data.</li>
+        <li><strong>Delete lifts:</strong> If you want to remove a lift entry, click the "Delete" button.</li>
+        <li><strong>Track progress:</strong> Compare your lifts and see how you're improving over time!</li>
+    </ul>
+
+    <p>Start tracking your lifts today, and take your fitness journey to the next level!</p>
+
     <div class="lifts">
-        <% lifts.forEach(lift => { %> <!-- Use EJS <% %> tags for logic -->
+        <% lifts.forEach(lift => { %> 
             <div class="lift">
-                <h3>Name </h3>
-                <h3><%= lift.name %></h3> 
-                <p><%= lift.id %></p>  <!-- Use <%= %> to output values -->
+                <h3>Name</h3>
+                <h4><%= lift.name %></h4> 
+                <p><strong>ID:</strong> <%= lift.id %></p>  
                 <h3>Weight</h3>
-                <p><%= lift.weight %></p> 
+                <p><%= lift.weight %> lbs</p> 
                 <h3>Reps</h3>
                 <p><%= lift.reps %></p> 
                 <h3>Sets</h3>
@@ -34,10 +50,8 @@
                     <button type="submit" onclick="return confirm('Are you sure you want to delete this lift?');">Delete</button>
                 </form>
             </div>
-        <% }); %> <!-- Close the forEach loop with <% %> -->
+        <% }); %> 
     </div>
-
-
 
 </body>
 </html>

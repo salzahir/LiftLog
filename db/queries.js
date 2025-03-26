@@ -16,7 +16,7 @@ async function insertLift(lift) {
         await pool.query(`
             INSERT INTO workouts (name, reps, sets, weight, date)
             VALUES ($1, $2, $3, $4, $5)
-        `, [lift.name, lift.reps, lift.sets,  lift.weight, lift.date]);
+        `, [lift.name, lift.reps, lift.sets, lift.weight, lift.date]);
     } catch (error) {
         console.error('Error inserting lift', error);
     }
@@ -25,13 +25,9 @@ async function insertLift(lift) {
 async function getLift(id) {
     try {
         const lift = await pool.query('SELECT * FROM workouts WHERE id = $1', [id]);
-
-        console.log('Lift date');
-        console.log(lift.rows[0].date);
         if (lift.date) {
             lift.date = lift.date.toISOString().split('T')[0];
         }
-
         return lift.rows[0];
     } catch (error) {
         console.error('Error getting lift', error);
@@ -62,7 +58,7 @@ async function deleteLift(id) {
 module.exports = {
     getLifts,
     insertLift,
-    getLift, 
+    getLift,
     updateLift,
     deleteLift
 };
